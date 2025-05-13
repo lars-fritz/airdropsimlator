@@ -11,9 +11,9 @@ Welcome to the FLY Token Airdrop calculator. Use this tool to simulate your hatc
 - **Staking > 0.5 FLY per 10 eggs** starts hatching
 - Hatching completes in 26 weeks at 1 FLY per 10 eggs
 - Volume boosts your effective stake
-
----  
 """)
+
+st.markdown("---")
 
 # Input fields
 num_eggs = st.number_input("🥚 Number of Eggs", min_value=10, step=10)
@@ -37,8 +37,9 @@ st.markdown(f"**⚖️ Alpha (FLY_eff / eggs):** {alpha:.4f}")
 
 # Hatching formula
 Ns = 26 * 7 * 24 * 60 * 60  # seconds in 26 weeks
+
 if alpha <= 0.05:
-    st.warning("Staking too low — eggs only preserved, not hatched.")
+    st.warning("🚫 Staking too low — eggs only preserved from rotting, not hatched.")
 else:
     # Hatch progress estimate
     hatch_time_seconds = Ns / (20 * alpha - 1)
@@ -48,9 +49,11 @@ else:
     st.success(f"⏳ Estimated Hatching Time: **{hatch_weeks:.1f} weeks**")
     st.progress(min(progress, 1.0))
 
+st.markdown("""
 ---
 
-# 🐣 Tips:
-- Minimum stake: **0.5 FLY / 10 eggs** to prevent rot
-- Hatch starts above this threshold
+### 🐣 Tips:
+- 🛡️ Minimum stake: **0.5 FLY / 10 eggs** to prevent rot
+- 🚀 Hatch begins when staked FLY (adjusted by volume) exceeds that threshold
+- 🕐 Hatching is **continuous** — more stake and volume = faster unlocks
 """)
