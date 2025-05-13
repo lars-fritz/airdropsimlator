@@ -5,99 +5,21 @@ st.set_page_config(page_title="FLY Airdrop Simulator", layout="wide")
 
 st.title("🪂 FLY Token Airdrop Simulator")
 
-with st.expander("📘 Full Airdrop Documentation", expanded=True):
-    st.markdown("""
-### Airdrop Allocation
-
-- **500,000 FLY Tokens (Free)**
-- **1,000,000 FLY Tokens (Locked)**
-    - Represented by **10,000,000 Eggs**
-    - Eggs must be **hatched** to unlock underlying FLY tokens
-    - If unhatched, eggs rot, unless they are hatched with a minimum stake that halts the rotting
-
----
-
-## 🥚 Egg Mechanics
-
-- Each **egg = 0.1 FLY token**
-- Eggs are not tradeable, but represent a **claim**
-- Hatching is required to realize their value
-
----
-
-## ☠️ Rotting Mechanism
-
-- Eggs **rot linearly over 1 year** if unhatched
-- Rotting occurs on a **weekly schedule**
-- Rotten eggs = permanently burnt FLY
-
-| Time Since Airdrop | % Rotten |
-| --- | --- |
-| 1 week | ~1.92% |
-| 1 month | ~8.33% |
-| 6 months | ~50% |
-| 12 months | 100% |
-
----
-
-## 🐣 Hatching & Staking Rules
-
-### Hatching Conditions
-
-- Stake **≥ 0.5 FLY per 10 eggs**: rot is halted
-- Stake **> 0.5 FLY per 10 eggs**: hatching starts
-- Stake **= 1 FLY per 10 eggs**: unlocks in 26 weeks
-
----
-
-### ⏳ Hatching Formula
-
-Let:
-
-- $N_s$ = seconds in 26 weeks
-- $\alpha = \frac{FLY_{eff}}{N_{eggs}}$
-- $t$ = time passed
-
-Then hatching time remaining:
-
-$$
-N(t) = N_s - 20\left(\alpha - \frac{1}{20}\right)t
-$$
-
-Progress:
-
-$$
-\text{Progress} = 1 - \frac{N(t)}{N_s}
-$$
-
-- **Effective FLY** = `Staked FLY × Volume Multiplier`
-
----
-
-## 📈 Volume Multiplier
-
-| 30-Day Trading Volume | Volume Multiplier |
-| --- | --- |
-| < $500,000 | 1× |
-| $500,000 – $1,999,999 | 1.5× |
-| ≥ $2,000,000 | 2× |
-
-> 🔓 Higher volume = faster hatching
-
----
-
-## ✅ Summary
-
-- Claim up to **1.5M FLY**
-- **10M Eggs** = locked FLY
-- Stake to **stop rot** or **start hatching**
-- More stake + more volume = faster unlock
+# === Simple Airdrop Overview ===
+st.markdown("""
+### 🎁 Airdrop Overview
+Claim up to **1.5M FLY tokens** via airdrop:
+- **500,000 FLY (free)**
+- **1,000,000 FLY (locked)** represented by **10,000,000 eggs**
+- Eggs must be **hatched** by staking FLY or they **rot over time**
 """)
 
-st.markdown("---")
-st.header("🔢 Hatching Time Calculator")
+st.divider()
 
-# === User Inputs ===
+# === Hatching Time Calculator ===
+st.header("🔢 Hatch Time Calculator")
+
+# === Inputs ===
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -109,7 +31,7 @@ with col2:
 with col3:
     volume = st.number_input("📊 30-Day Trading Volume ($)", min_value=0.0, step=50000.0)
 
-# === Determine Volume Multiplier ===
+# === Multiplier ===
 if volume < 500_000:
     multiplier = 1.0
 elif volume < 2_000_000:
@@ -122,13 +44,13 @@ alpha = fly_eff / num_eggs if num_eggs > 0 else 0
 
 st.markdown(f"**🎯 Effective FLY:** `{fly_eff:.2f}`")
 st.markdown(f"**📈 Volume Multiplier:** `{multiplier}x`")
-st.markdown(f"**⚖️ Alpha (FLY_eff / eggs):** `{alpha:.4f}`")
+st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
 
-# === Hatching Time Calculation ===
+# === Hatch Time Calculation ===
 Ns = 26 * 7 * 24 * 60 * 60  # seconds in 26 weeks
 
 if alpha <= 0.05:
-    st.warning("🚫 Insufficient staking — rotting is halted but no hatching will occur.")
+    st.warning("🚫 Staking too low — hatching does not start, but rotting is halted.")
 else:
     hatch_time_seconds = Ns / (20 * alpha - 1)
     hatch_weeks = hatch_time_seconds / (7 * 24 * 60 * 60)
@@ -139,9 +61,67 @@ else:
     st.progress(progress)
 
 st.markdown("""
+ℹ️ **Note:** Hatching only starts if stake > 0.5 FLY per 10 eggs. Rotting is avoided at this threshold but no unlocking occurs.
+""")
+
+st.divider()
+
+# === Full Documentation Below ===
+with st.expander("📘 Full Airdrop Documentation"):
+    st.markdown("""
+### 🧾 Airdrop Allocation
+- **500,000 FLY Tokens (Free)**
+- **1,000,000 FLY Tokens (Locked)**
+  - Represented by **10,000,000 Eggs**
+  - Eggs must be hatched to claim underlying tokens
+  - Without action, eggs **rot** and value is lost
+
 ---
 
-📌 **Note:**
-- If you reduce your stake or lose your multiplier, hatching resets.
-- Keep parameters constant to hatch at the estimated rate.
+### 🥚 Egg Basics
+- **1 egg = 0.1 FLY token**
+- Eggs are non-tradeable placeholders for locked FLY
+- Eggs rot unless preserved or hatched by staking
+
+---
+
+### 🧟 Rotting Timeline
+
+| Time Since Airdrop | % Rotten |
+|--------------------|----------|
+| 1 week             | ~1.92%   |
+| 1 month            | ~8.33%   |
+| 6 months           | ~50%     |
+| 12 months          | 100%     |
+
+---
+
+### 🐣 Staking to Hatch
+
+- **0.5 FLY per 10 eggs**: halts rotting
+- **> 0.5 FLY per 10 eggs**: begins hatching
+- **1 FLY per 10 eggs**: fully hatched in 26 weeks
+- Hatching happens **continuously** over time
+
+---
+
+### 🚀 Volume-Based Boosting
+
+Your **30-day trading volume** boosts your hatching speed:
+
+| Volume ($)           | Multiplier |
+|----------------------|------------|
+| < $500,000           | 1×         |
+| $500k – $1.99M       | 1.5×       |
+| ≥ $2M                | 2×         |
+
+> 🔓 Higher trading = faster hatching
+
+---
+
+### ✅ Summary
+
+- **Claim up to 1.5M FLY** (500k free + 1M locked)
+- **Stake FLY** to stop eggs from rotting or begin hatching
+- **Boost with volume** to hatch faster
 """)
