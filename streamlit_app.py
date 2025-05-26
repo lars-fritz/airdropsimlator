@@ -48,7 +48,7 @@ st.markdown(f"**📈 Volume Multiplier:** `{multiplier}x`")
 st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
 
 # === Hatch Time Calculation ===
-Ns = 25 * 7 * 24 * 60 * 60  # seconds in 26 weeks
+Ns = 24.8 * 7 * 24 * 60 * 60  # seconds in 26 weeks
 
 if fly_eff / num_eggs <= 0.1:
     if fly_eff / num_eggs==0.1:
