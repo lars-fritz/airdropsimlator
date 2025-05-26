@@ -41,7 +41,7 @@ else:
     multiplier = 2.0
 
 fly_eff = staked_fly * multiplier
-alpha = 0.75*tanh(fly_eff / num_eggs*1/0.75) if num_eggs > 0 else 0
+alpha = 0.75*tanh(fly_eff / num_eggs*1/0.4) if num_eggs > 0 else 0
 
 st.markdown(f"**🎯 Effective FLY:** `{fly_eff:.2f}`")
 st.markdown(f"**📈 Volume Multiplier:** `{multiplier}x`")
