@@ -49,10 +49,10 @@ st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
 # === Hatch Time Calculation ===
 Ns = 26 * 7 * 24 * 60 * 60  # seconds in 26 weeks
 
-if alpha <= 0.05:
+if alpha <= 0.1:
     st.warning("🚫 Staking too low — hatching does not start, but rotting is halted.")
 else:
-    hatch_time_seconds = Ns / (20 * alpha - 1)
+    hatch_time_seconds = Ns / (10 * alpha - 1)
     hatch_weeks = hatch_time_seconds / (7 * 24 * 60 * 60)
     progress = 1 - hatch_time_seconds / Ns
     progress = max(0.0, min(progress, 1.0))
@@ -61,7 +61,7 @@ else:
     st.progress(progress)
 
 st.markdown("""
-ℹ️ **Note:** Hatching only starts if stake > 0.5 FLY per 10 eggs. Rotting is avoided at this threshold but no unlocking occurs.
+ℹ️ **Note:** Hatching only starts if stake > 1 FLY per 10 eggs. Rotting is avoided at this threshold but no unlocking occurs.
 """)
 
 st.divider()
@@ -98,9 +98,9 @@ with st.expander("📘 Full Airdrop Documentation"):
 
 ### 🐣 Staking to Hatch
 
-- **0.5 FLY per 10 eggs**: halts rotting
-- **> 0.5 FLY per 10 eggs**: begins hatching
-- **1 FLY per 10 eggs**: fully hatched in 26 weeks
+- **1 FLY per 10 eggs**: halts rotting
+- **> 1 FLY per 10 eggs**: begins hatching
+- **2 FLY per 10 eggs**: fully hatched in 26 weeks
 - Hatching happens **continuously** over time
 
 ---
