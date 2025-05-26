@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+from math import tanh
 
 st.set_page_config(page_title="FLY Airdrop Simulator", layout="wide")
 
