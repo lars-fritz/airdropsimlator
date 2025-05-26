@@ -41,14 +41,14 @@ else:
     multiplier = 2.0
 
 fly_eff = staked_fly * multiplier
-alpha = 0.75*tanh(fly_eff / num_eggs*1/0.4) if num_eggs > 0 else 0
+alpha = 0.75*tanh(fly_eff / num_eggs*1/0.75) if num_eggs > 0 else 0
 
 st.markdown(f"**🎯 Effective FLY:** `{fly_eff:.2f}`")
 st.markdown(f"**📈 Volume Multiplier:** `{multiplier}x`")
 st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
 
 # === Hatch Time Calculation ===
-Ns = 26 * 7 * 24 * 60 * 60  # seconds in 26 weeks
+Ns = 25 * 7 * 24 * 60 * 60  # seconds in 26 weeks
 
 if alpha <= 0.1:
     st.warning("🚫 Staking too low — hatching does not start, but rotting is halted.")
