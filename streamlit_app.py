@@ -51,7 +51,10 @@ st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
 Ns = 25 * 7 * 24 * 60 * 60  # seconds in 26 weeks
 
 if fly_eff / num_eggs <= 0.1:
-    st.warning("🚫 Staking too low — hatching does not start, but rotting is halted.")
+    if fly_eff / num_eggs=0.1:
+        st.warning("🚫 Staking too low — hatching does not start, but rotting is halted.")
+    else
+        st.warning("🚫 Staking too low — eggs are rotting.")
 else:
     hatch_time_seconds = Ns / (10 * alpha - 1)
     hatch_weeks = hatch_time_seconds / (7 * 24 * 60 * 60)
