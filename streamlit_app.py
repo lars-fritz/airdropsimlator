@@ -41,8 +41,7 @@ else:
     multiplier = 2.0
 
 fly_eff = staked_fly * multiplier
-# alpha = 0.75*tanh(fly_eff / num_eggs*1/0.75) if num_eggs > 0 else 0
-alpha = 0.282467*tanh(fly_eff / num_eggs*1/0.282467) if num_eggs > 0 else 0
+alpha = 0.75*tanh(fly_eff / num_eggs*1/0.75) if num_eggs > 0 else 0
 st.markdown(f"**🎯 Effective FLY:** `{fly_eff:.2f}`")
 st.markdown(f"**📈 Volume Multiplier:** `{multiplier}x`")
 st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
@@ -56,8 +55,7 @@ if fly_eff / num_eggs <= 0.1:
     else:
         st.warning("🚫 Staking too low — eggs are rotting.")
 else:
-    #hatch_time_seconds = Ns / (10 * alpha - 1)
-    hatch_time_seconds = Ns / (1.2702*10**7*(alpha - 0.282467))
+    hatch_time_seconds = Ns / (10 * alpha - 1)
     hatch_weeks = hatch_time_seconds / (7 * 24 * 60 * 60)
     progress = 1 - hatch_time_seconds / Ns
     progress = max(0.0, min(progress, 1.0))
