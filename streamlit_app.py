@@ -57,7 +57,7 @@ if fly_eff / num_eggs <= 0.1:
         st.warning("🚫 Staking too low — eggs are rotting.")
 else:
     #hatch_time_seconds = Ns / (10 * alpha - 1)
-    hatch_time_seconds = Ns / (1.2702*10^7*(alpha - 0.282467))
+    hatch_time_seconds = Ns / (1.2702*10**7*(alpha - 0.282467))
     hatch_weeks = hatch_time_seconds / (7 * 24 * 60 * 60)
     progress = 1 - hatch_time_seconds / Ns
     progress = max(0.0, min(progress, 1.0))
