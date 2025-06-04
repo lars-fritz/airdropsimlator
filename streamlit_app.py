@@ -11,7 +11,7 @@ st.markdown("""
 ### 🎁 Airdrop Overview
 Claim up to **1.5M FLY tokens** via airdrop:
 - **500,000 FLY (free)**
-- **1,000,000 FLY (locked)** represented by **10,000,000 eggs**
+- **1,000,000 FLY (locked)** represented by **1,000,000 eggs**
 - Eggs must be **hatched** by staking FLY or they **rot over time**
 """)
 
@@ -49,13 +49,10 @@ st.markdown(f"**⚖️ Stake-to-Egg Ratio:** `{alpha:.4f}`")
 # === Hatch Time Calculation ===
 Ns = 26 * 7 * 24 * 60 * 60  # seconds in 26 weeks
 
-if fly_eff / num_eggs <= 0.1:
-    if fly_eff / num_eggs==0.1:
-        st.warning("🚫 Staking too low — hatching does not start, but rotting is halted.")
-    else:
-        st.warning("🚫 Staking too low — eggs are rotting.")
+if fly_eff / num_eggs < 0.1:
+    st.warning("🚫 Staking too low — eggs are rotting.")
 else:
-    hatch_time_seconds = (1+20/9*alpha)/(130/9*(alpha-0.1))*Ns 
+    hatch_time_seconds = (1+1/7*alpha)/(4/7*alpha)*Ns 
     hatch_weeks = hatch_time_seconds / (7 * 24 * 60 * 60)
     progress = 1 - hatch_time_seconds / Ns
     progress = max(0.0, min(progress, 1.0))
@@ -64,7 +61,7 @@ else:
     st.progress(progress)
 
 st.markdown("""
-ℹ️ **Note:** Hatching only starts if stake > 1 FLY per 10 eggs. Rotting is avoided at this threshold but no unlocking occurs.
+ℹ️ **Note:** Hatching only starts if stake > 1 FLY per 1 egg. 
 """)
 
 st.divider()
@@ -75,14 +72,14 @@ with st.expander("📘 Full Airdrop Documentation"):
 ### 🧾 Airdrop Allocation
 - **500,000 FLY Tokens (Free)**
 - **1,000,000 FLY Tokens (Locked)**
-  - Represented by **10,000,000 Eggs**
+  - Represented by **1,000,000 Eggs**
   - Eggs must be hatched to claim underlying tokens
   - Without action, eggs **rot** and value is lost
 
 ---
 
 ### 🥚 Egg Basics
-- **1 egg = 0.1 FLY token**
+- **1 egg = 1 FLY token**
 - Eggs are non-tradeable placeholders for locked FLY
 - Eggs rot unless preserved or hatched by staking
 
@@ -92,19 +89,19 @@ with st.expander("📘 Full Airdrop Documentation"):
 
 | Time Since Airdrop | % Rotten |
 |--------------------|----------|
-| 1 week             | ~1.92%   |
-| 1 month            | ~8.33%   |
-| 6 months           | ~50%     |
-| 12 months          | 100%     |
+| 1 week             | ~25%   |
+| 2 weeks            | ~50%%   |
+| 3 weeks           | ~75%     |
+| 4 weeks          | 100%     |
 
 ---
 
 ### 🐣 Staking to Hatch
 
-- **1 FLY per 10 eggs**: halts rotting
-- **> 1 FLY per 10 eggs**: begins hatching
-- **2 FLY per 10 eggs**: fully hatched in 26 weeks
-- Hatching happens **continuously** over time
+- **1 FLY per 1 egg**: begins hatching, hatches in 52 weeks
+- **2 FLY per 10 eggs**: fully hatched in 29 weeks
+- **3 The minimal hatching time is 4 weeks
+- Hatching happens **continuously** over time and so do unlocks
 
 ---
 
